@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="José Carlos Soage González" />
+
+<meta name="date" content="2018-03-30" />
+
+<title>Package DTDA.ni</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Package DTDA.ni</h1>
+<h4 class="author"><em>José Carlos Soage González</em></h4>
+<h4 class="date"><em>2018-03-30</em></h4>
+
+
+
+<div id="doubly-truncated-data-analysis-non-iterative" class="section level3">
+<h3>Doubly Truncated Data Analysis, Non Iterative</h3>
+</div>
+<div id="description-package" class="section level3">
+<h3>Description [package]</h3>
+<p>This package implements a non-iterative estimator for the cumulative distribution of a doubly truncated variable, see <a href="https://link.springer.com/chapter/10.1007%2F978-3-319-73848-2_37">de Uña-Álvarez (2018)</a>. The package is restricted to interval sampling.</p>
+<p>de Uña-Álvarez J. (2018) A Non-iterative Estimator for Interval Sampling and Doubly Truncated Data. In: Gil E., Gil E., Gil J., Gil M. (eds) The Mathematics of the Uncertain. Studies in Systems, Decision and Control, vol 142. Springer, Cham, pp. 387-400.</p>
+</div>
+<div id="dtdanix-u-tau" class="section level2">
+<h2>DTDAni(x, u , tau)</h2>
+<div id="description-function-dtdani" class="section level3">
+<h3>Description [function DTDAni]</h3>
+<p>This function calculates the non-iterative estimator for the cumulative distribution of a doubly truncated variable proposed by <a href="https://link.springer.com/chapter/10.1007%2F978-3-319-73848-2_37">de Uña-Álvarez (2018)</a>. The package works for interval sampling.</p>
+</div>
+<div id="details-function-dtdani" class="section level3">
+<h3>Details [function DTDAni]</h3>
+<p>The function DTDAni is adapted to the presence of ties. It can be used to compute the direct <span class="math inline">\((Fd)\)</span> and the reverse <span class="math inline">\((Fr)\)</span> estimators; see the example below. Both curves are valid estimators for the cumulative distribution <span class="math inline">\((F)\)</span> of the doubly truncated variable. Weighted estimators <span class="math inline">\(Fw = w*Fd + (1-w)*Fr\)</span> with <span class="math inline">\(0&lt;w&lt;1\)</span> are valid too, the choice <span class="math inline">\(w=1/2\)</span> being recommended in practice (de Uña-Álvarez, 2018).</p>
+</div>
+<div id="usage" class="section level3">
+<h3>Usage</h3>
+<p>In order to use this package, install it and load the library with: <code>library(DTDA.ni)</code></p>
+</div>
+<div id="parameters" class="section level3">
+<h3>Parameters</h3>
+<ul>
+<li><strong>x</strong>: Numeric vector corresponding the variable of ultimate interest.</li>
+<li><strong>u</strong>: Numeric vector corresponding to the left truncation variable.</li>
+<li><strong>tau</strong>: Sampling interval width. The right truncation values will be internally calculated as v = u + tau.</li>
+</ul>
+</div>
+<div id="return" class="section level3">
+<h3>Return</h3>
+<ul>
+<li><strong>x</strong> : The distinct values of the variable of interest.</li>
+<li><strong>nx</strong> : The absloute frequency of each x value.</li>
+<li><strong>cumprob</strong> : The estimated cumulative probability for each x value.</li>
+<li><strong>P</strong> : The auxiliary Pi used in the calculation of the estimator.</li>
+<li><strong>L</strong> : The auxiliary Li used in the calculation of the estimator.</li>
+</ul>
+</div>
+<div id="usage-1" class="section level3">
+<h3>Usage</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># Loading the package:</span>
+<span class="kw">library</span>(DTDA.ni)
+
+<span class="co"># Generating data which are doubly truncated:</span>
+N &lt;-<span class="st"> </span><span class="dv">250</span>
+x0 &lt;-<span class="st"> </span><span class="kw">runif</span>(N)           <span class="co"># Original data</span>
+u0 &lt;-<span class="st"> </span><span class="kw">runif</span>(N, <span class="op">-</span><span class="fl">0.25</span>, <span class="fl">0.5</span>) <span class="co"># Left-truncation times</span>
+tau &lt;-<span class="st"> </span><span class="fl">0.75</span>               <span class="co"># Interval width</span>
+v0 &lt;-<span class="st"> </span>u0 <span class="op">+</span><span class="st"> </span>tau
+
+x &lt;-<span class="st"> </span>x0[u0 <span class="op">&lt;=</span><span class="st"> </span>x0 <span class="op">&amp;</span><span class="st"> </span>x0 <span class="op">&lt;=</span><span class="st"> </span>v0]
+u &lt;-<span class="st"> </span>u0[u0 <span class="op">&lt;=</span><span class="st"> </span>x0 <span class="op">&amp;</span><span class="st"> </span>x0 <span class="op">&lt;=</span><span class="st"> </span>v0]
+v &lt;-<span class="st"> </span>v0[u0 <span class="op">&lt;=</span><span class="st"> </span>x0 <span class="op">&amp;</span><span class="st"> </span>x0 <span class="op">&lt;=</span><span class="st"> </span>v0]
+n &lt;-<span class="st"> </span><span class="kw">length</span>(x)  <span class="co"># Final sample size after the interval sampling</span>
+
+<span class="co"># Create an object wit DTDAni function</span>
+res &lt;-<span class="st"> </span><span class="kw">DTDAni</span>(x, u, tau)
+<span class="co">#&gt; Call: </span>
+<span class="co">#&gt; DTDAni(x = x, u = u, tau = tau)</span>
+<span class="kw">plot</span>(res, <span class="dt">ecdf =</span> <span class="ot">FALSE</span>) <span class="co"># Plot without ecdf (Default)</span>
+<span class="kw">abline</span>(<span class="dt">a =</span> <span class="dv">0</span>, <span class="dt">b =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;green&quot;</span>)  <span class="co"># The true cumulative distribution</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Calculating the reverse estimator:</span>
+<span class="kw">plot</span>(res)
+
+res2 &lt;-<span class="st"> </span><span class="kw">DTDAni</span>(<span class="op">-</span>x, <span class="op">-</span>u <span class="op">-</span><span class="st"> </span><span class="fl">0.75</span>, <span class="fl">0.75</span>)
+<span class="co">#&gt; Call: </span>
+<span class="co">#&gt; DTDAni(x = -x, u = -u - 0.75, tau = 0.75)</span>
+<span class="kw">abline</span>(<span class="dt">a =</span> <span class="dv">0</span>, <span class="dt">b =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;green&quot;</span>) 
+<span class="kw">lines</span>(<span class="op">-</span>res2<span class="op">$</span>x, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>res2<span class="op">$</span>cumprob, <span class="dt">type =</span> <span class="st">&quot;s&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Weigthed estimator (recommended):</span>
+
+w &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>
+
+k &lt;-<span class="st"> </span><span class="kw">length</span>(res<span class="op">$</span>x)
+
+Fw &lt;-<span class="st"> </span>w <span class="op">*</span><span class="st"> </span>res<span class="op">$</span>cumprob <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>w) <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>res2<span class="op">$</span>cumprob[k<span class="op">:</span><span class="dv">1</span>])
+
+<span class="kw">plot</span>(res)
+<span class="kw">abline</span>(<span class="dt">a =</span> <span class="dv">0</span>, <span class="dt">b =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;green&quot;</span>) 
+<span class="kw">lines</span>(<span class="op">-</span>res2<span class="op">$</span>x, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>res2<span class="op">$</span>cumprob, <span class="dt">type =</span> <span class="st">&quot;s&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">lty =</span> <span class="dv">2</span>)
+<span class="kw">lines</span>(res<span class="op">$</span>x, Fw, <span class="dt">type =</span> <span class="st">&quot;s&quot;</span>, <span class="dt">col =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+
+<span class="co"># Using res$P and res$L to compute the estimator:</span>
+
+k &lt;-<span class="st"> </span><span class="kw">length</span>(res<span class="op">$</span>x)
+F &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, k)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>k) {
+F[i] &lt;-<span class="st"> </span>(F[i <span class="op">-</span><span class="st"> </span><span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>res<span class="op">$</span>P[i <span class="op">-</span><span class="st"> </span><span class="dv">1</span>]) <span class="op">/</span><span class="st"> </span>res<span class="op">$</span>L[i <span class="op">-</span><span class="st"> </span><span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>res<span class="op">$</span>P[i <span class="op">-</span><span class="st"> </span><span class="dv">1</span>]
+}
+
+F0 &lt;-<span class="st"> </span>F <span class="op">/</span><span class="st"> </span><span class="kw">max</span>(F)  <span class="co"># This is equal to res$cumprob</span></code></pre></div>
+</div>
+<div id="authors" class="section level3">
+<h3>Author(s)</h3>
+<ul>
+<li>de Uña Álavarez, Jacobo.</li>
+<li>Soage González, José Carlos.</li>
+</ul>
+<p>Maintainer: José Carlos Soage González (<a href="mailto:jsoage@uvigo.es">jsoage@uvigo.es</a>)</p>
+</div>
+<div id="acknowledgements" class="section level3">
+<h3>Acknowledgements</h3>
+<ul>
+<li><p>Jacobo de Uña-Álvarez was supported by Grant MTM2014-55966-P, Spanish Ministry of Economy and Competitiveness .</p></li>
+<li><p>José Carlos Soage was supported by Red Tecnológica de Matemática Industrial (Red TMATI), Cons. de Cultura, Educación e OU, Xunta de Galicia (ED341D R2016/051) and by Grupos de Referencia Competitiva, Consolidación y Estructuración de Unidades de Investigación Competitivas del SUG, Cons. de Cultura, Educación e OU, Xunta de Galicia (GRC ED431C 2016/040).</p></li>
+</ul>
+</div>
+<div id="references" class="section level3">
+<h3>References</h3>
+<p>de Uña-Álvarez J. (2018) A Non-iterative Estimator for Interval Sampling and Doubly Truncated Data. In: Gil E., Gil E., Gil J., Gil M. (eds) The Mathematics of the Uncertain. Studies in Systems, Decision and Control, vol 142. Springer, Cham</p>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

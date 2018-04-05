@@ -1,0 +1,15 @@
+82fa17e5e02781d7a14342d05bf15832 *DESCRIPTION
+5d4c1f42ebef0e8732b79ff71ac9fb3c *NAMESPACE
+fe7ad3d7c54c1e3cf3a8c5893890d717 *R/DTDA.ni.R
+70b1c81072c8af81eae1c09eed016db3 *R/DTDAni.R
+dc6c6b7d785416bfd917e1361fde8ffe *R/plotDTDAni.R
+30b4ac046e80a366d656fe81832e8631 *R/zzz.R
+d2018e70bb5a3dd2a6b12d21099c66f5 *build/vignette.rds
+80d7a1f06227e0cd1e7396f238606ede *inst/doc/vignette.R
+bf650e48710b5a2c83ea4b941ffe7834 *inst/doc/vignette.Rmd
+026fe75f7bceebd6f8f69e5541855fde *inst/doc/vignette.html
+74fe2fca03a3ec9c4375adafde88c218 *man/DTDA.ni-package.Rd
+8e0873c18264e5968ac15769e3d49a31 *man/DTDAni.Rd
+fb7a363bf224f3226303f4a279ddb9a0 *man/plot.DTDAni.Rd
+760425efa2049d071dae73697b313bce *vignettes/plot.png
+bf650e48710b5a2c83ea4b941ffe7834 *vignettes/vignette.Rmd
