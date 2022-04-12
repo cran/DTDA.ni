@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="José Carlos Soage González" />
+
+<meta name="date" content="2022-04-12" />
+
+<title>Package DTDA.ni</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Package DTDA.ni</h1>
+<h4 class="author">José Carlos Soage González</h4>
+<h4 class="date">2022-04-12</h4>
+
+
+
+<div id="doubly-truncated-data-analysis-non-iterative" class="section level3">
+<h3>Doubly Truncated Data Analysis, Non Iterative</h3>
+</div>
+<div id="description-package" class="section level3">
+<h3>Description [package]</h3>
+<p>This package implements a non-iterative estimator for the cumulative
+distribution of a doubly truncated variable, see <a href="https://link.springer.com/chapter/10.1007/978-3-319-73848-2_37">de
+Uña-Álvarez (2018)</a>. The package is restricted to interval
+sampling.</p>
+<p>de Uña-Álvarez J. (2018) A Non-iterative Estimator for Interval
+Sampling and Doubly Truncated Data. In: Gil E., Gil E., Gil J., Gil M.
+(eds) The Mathematics of the Uncertain. Studies in Systems, Decision and
+Control, vol 142. Springer, Cham, pp. 387-400.</p>
+</div>
+<div id="dtdanix-u-tau" class="section level2">
+<h2>DTDAni(x, u , tau)</h2>
+<div id="description-function-dtdani" class="section level3">
+<h3>Description [function DTDAni]</h3>
+<p>This function calculates the non-iterative estimator for the
+cumulative distribution of a doubly truncated variable proposed by <a href="https://link.springer.com/chapter/10.1007/978-3-319-73848-2_37">de
+Uña-Álvarez (2018)</a>. The package works for interval sampling.</p>
+</div>
+<div id="details-function-dtdani" class="section level3">
+<h3>Details [function DTDAni]</h3>
+<p>The function DTDAni is adapted to the presence of ties. It can be
+used to compute the direct <span class="math inline">\((Fd)\)</span> and
+the reverse <span class="math inline">\((Fr)\)</span> estimators; see
+the example below. Both curves are valid estimators for the cumulative
+distribution <span class="math inline">\((F)\)</span> of the doubly
+truncated variable. Weighted estimators <span class="math inline">\(Fw =
+w*Fd + (1-w)*Fr\)</span> with <span class="math inline">\(0&lt;w&lt;1\)</span> are valid too, the choice
+<span class="math inline">\(w=1/2\)</span> being recommended in practice
+(de Uña-Álvarez, 2018).</p>
+</div>
+<div id="usage" class="section level3">
+<h3>Usage</h3>
+<p>In order to use this package, install it and load the library with:
+<code>library(DTDA.ni)</code></p>
+</div>
+<div id="parameters" class="section level3">
+<h3>Parameters</h3>
+<ul>
+<li><strong>x</strong>: Numeric vector corresponding the variable of
+ultimate interest.</li>
+<li><strong>u</strong>: Numeric vector corresponding to the left
+truncation variable.</li>
+<li><strong>tau</strong>: Sampling interval width. The right truncation
+values will be internally calculated as v = u + tau.</li>
+</ul>
+</div>
+<div id="return" class="section level3">
+<h3>Return</h3>
+<ul>
+<li><strong>x</strong> : The distinct values of the variable of
+interest.</li>
+<li><strong>nx</strong> : The absloute frequency of each x value.</li>
+<li><strong>cumprob</strong> : The estimated cumulative probability for
+each x value.</li>
+<li><strong>P</strong> : The auxiliary Pi used in the calculation of the
+estimator.</li>
+<li><strong>L</strong> : The auxiliary Li used in the calculation of the
+estimator.</li>
+</ul>
+</div>
+<div id="usage-1" class="section level3">
+<h3>Usage</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading the package:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DTDA.ni)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generating data which are doubly truncated:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">250</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="fu">runif</span>(N)           <span class="co"># Original data</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>u0 <span class="ot">&lt;-</span> <span class="fu">runif</span>(N, <span class="sc">-</span><span class="fl">0.25</span>, <span class="fl">0.5</span>) <span class="co"># Left-truncation times</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>tau <span class="ot">&lt;-</span> <span class="fl">0.75</span>               <span class="co"># Interval width</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>v0 <span class="ot">&lt;-</span> u0 <span class="sc">+</span> tau</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> x0[u0 <span class="sc">&lt;=</span> x0 <span class="sc">&amp;</span> x0 <span class="sc">&lt;=</span> v0]</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> u0[u0 <span class="sc">&lt;=</span> x0 <span class="sc">&amp;</span> x0 <span class="sc">&lt;=</span> v0]</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> v0[u0 <span class="sc">&lt;=</span> x0 <span class="sc">&amp;</span> x0 <span class="sc">&lt;=</span> v0]</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)  <span class="co"># Final sample size after the interval sampling</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an object wit DTDAni function</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">DTDAni</span>(x, u, tau)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call: </span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; DTDAni(x = x, u = u, tau = tau)</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(res, <span class="at">ecdf =</span> <span class="cn">FALSE</span>) <span class="co"># Plot without ecdf (Default)</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;green&quot;</span>)  <span class="co"># The true cumulative distribution</span></span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the reverse estimator:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(res)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>res2 <span class="ot">&lt;-</span> <span class="fu">DTDAni</span>(<span class="sc">-</span>x, <span class="sc">-</span>u <span class="sc">-</span> <span class="fl">0.75</span>, <span class="fl">0.75</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call: </span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; DTDAni(x = -x, u = -u - 0.75, tau = 0.75)</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;green&quot;</span>) </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="sc">-</span>res2<span class="sc">$</span>x, <span class="dv">1</span> <span class="sc">-</span> res2<span class="sc">$</span>cumprob, <span class="at">type =</span> <span class="st">&quot;s&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Weigthed estimator (recommended):</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">length</span>(res<span class="sc">$</span>x)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>Fw <span class="ot">&lt;-</span> w <span class="sc">*</span> res<span class="sc">$</span>cumprob <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> w) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> res2<span class="sc">$</span>cumprob[k<span class="sc">:</span><span class="dv">1</span>])</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(res)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;green&quot;</span>) </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="sc">-</span>res2<span class="sc">$</span>x, <span class="dv">1</span> <span class="sc">-</span> res2<span class="sc">$</span>cumprob, <span class="at">type =</span> <span class="st">&quot;s&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(res<span class="sc">$</span>x, Fw, <span class="at">type =</span> <span class="st">&quot;s&quot;</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Using res$P and res$L to compute the estimator:</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">length</span>(res<span class="sc">$</span>x)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>F <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, k)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>k) {</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>F[i] <span class="ot">&lt;-</span> (F[i <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">-</span> res<span class="sc">$</span>P[i <span class="sc">-</span> <span class="dv">1</span>]) <span class="sc">/</span> res<span class="sc">$</span>L[i <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">+</span> res<span class="sc">$</span>P[i <span class="sc">-</span> <span class="dv">1</span>]</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>F0 <span class="ot">&lt;-</span> F <span class="sc">/</span> <span class="fu">max</span>(F)  <span class="co"># This is equal to res$cumprob</span></span></code></pre></div>
+</div>
+<div id="authors" class="section level3">
+<h3>Author(s)</h3>
+<ul>
+<li>de Uña Álavarez, Jacobo.</li>
+<li>Soage González, José Carlos.</li>
+</ul>
+<p>Maintainer: José Carlos Soage González (<a href="mailto:jsoage@uvigo.es" class="email">jsoage@uvigo.es</a>)</p>
+</div>
+<div id="acknowledgements" class="section level3">
+<h3>Acknowledgements</h3>
+<ul>
+<li><p>Jacobo de Uña-Álvarez was supported by Grant MTM2014-55966-P,
+Spanish Ministry of Economy and Competitiveness .</p></li>
+<li><p>José Carlos Soage was supported by Red Tecnológica de Matemática
+Industrial (Red TMATI), Cons. de Cultura, Educación e OU, Xunta de
+Galicia (ED341D R2016/051) and by Grupos de Referencia Competitiva,
+Consolidación y Estructuración de Unidades de Investigación Competitivas
+del SUG, Cons. de Cultura, Educación e OU, Xunta de Galicia (GRC ED431C
+2016/040).</p></li>
+</ul>
+</div>
+<div id="references" class="section level3">
+<h3>References</h3>
+<p>de Uña-Álvarez J. (2018) A Non-iterative Estimator for Interval
+Sampling and Doubly Truncated Data. In: Gil E., Gil E., Gil J., Gil M.
+(eds) The Mathematics of the Uncertain. Studies in Systems, Decision and
+Control, vol 142. Springer, Cham</p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
